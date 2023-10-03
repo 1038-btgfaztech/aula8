@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aula8.Api", "Aula8.Api\Aula8.Api.csproj", "{B3DC0809-65DB-4D7C-B31D-930EE9CBE79C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aula8.FrontEnd", "Aula8.FrontEnd\Aula8.FrontEnd.csproj", "{89E240B7-D4C0-41D3-AB22-7CA9D9E26E24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B3DC0809-65DB-4D7C-B31D-930EE9CBE79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3DC0809-65DB-4D7C-B31D-930EE9CBE79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3DC0809-65DB-4D7C-B31D-930EE9CBE79C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89E240B7-D4C0-41D3-AB22-7CA9D9E26E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89E240B7-D4C0-41D3-AB22-7CA9D9E26E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89E240B7-D4C0-41D3-AB22-7CA9D9E26E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89E240B7-D4C0-41D3-AB22-7CA9D9E26E24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

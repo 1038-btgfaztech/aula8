@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Text;
 
@@ -11,43 +12,24 @@ namespace Aula8.Api.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        private readonly IConfiguration configuration;
+        private readonly IAuthenticationService authenticationService;
 
-        public AccountController(IConfiguration configuration)
+        public AccountController(IAuthenticationService authenticationService)
         {
-            this.configuration = configuration;
+            this.authenticationService = authenticationService;
         }
 
         [HttpPost]
         [AllowAnonymous]
+        [Produces(MediaTypeNames.Application.Json)]
         public IActionResult Login(User user)
         {
-            if (user.Username != "username" || user.Password != "password")
+            var token = authenticationService.GetToken(user);
+
+            if (string.IsNullOrEmpty(token))
                 return BadRequest("Credenciais Inválidas");
 
-            var issuer = configuration["Jwt:Issuer"];
-            var audience = configuration["Jwt:Audience"];
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
-
-            var tokenDescriptor = new SecurityTokenDescriptor()
-            {
-                Subject = new ClaimsIdentity(new Claim[] { 
-                    new Claim("Id", Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Username),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(ClaimTypes.Role, "Admin")
-                }),
-                Expires = DateTime.UtcNow.AddDays(1),
-                Issuer = issuer,
-                Audience = audience,
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature)
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenAsString = tokenHandler.WriteToken(token);
-
-            return Ok(tokenAsString);
+            return Ok(new { token });
         }
     }
 }
