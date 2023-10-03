@@ -58,7 +58,11 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options => 
+{
+    options.AddPolicy("AdminsOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("AllUsers", policy => policy.RequireRole("User"));
+});
 
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 

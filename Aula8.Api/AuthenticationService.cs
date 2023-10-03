@@ -19,6 +19,8 @@ namespace Aula8.Api
             if (user.Username != "username" || user.Password != "password")
                 return string.Empty;
 
+            var role = user.IsAdmin ? "Admin" : "User";
+
             var issuer = configuration["Jwt:Issuer"];
             var audience = configuration["Jwt:Audience"];
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
@@ -29,7 +31,7 @@ namespace Aula8.Api
                     new Claim("Id", Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Username),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(ClaimTypes.Role, "Admin")
+                    new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 Issuer = issuer,

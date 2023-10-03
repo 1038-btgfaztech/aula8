@@ -31,4 +31,16 @@ public class WeatherForecastController : ControllerBase
         })
         .ToArray();
     }
+
+
+    [HttpGet]
+    [Route("test/user")]
+    [Authorize(Roles = "User, Admin")]
+    public IActionResult GetAsUser() => Ok("Successfully validated as user");
+
+    [HttpGet]
+    [Route("test/admin")]
+    [Authorize(Roles = "Admin")]
+    //[Authorize(Policy = "AdminOnly")]
+    public IActionResult GetAsAdmin() => Ok("Successfully validated as admin");
 }
