@@ -22,6 +22,7 @@ namespace Aula8.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Produces(MediaTypeNames.Application.Json)]
+        //[DurationFilter]
         public IActionResult Login(User user)
         {
             var token = authenticationService.GetToken(user);
